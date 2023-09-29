@@ -7,10 +7,16 @@ public class MenuBottonController : MonoBehaviour
 {
     [SerializeField] string OptionsLevel = "Options";
     [SerializeField] string MainGameLevel = "MainGame";
+    [SerializeField] string CreditsLevel = "Credits";
 
     public void OptionsButton()
     {
         SceneManager.LoadScene(OptionsLevel);
+    }
+
+    public void CreditsButton()
+    {
+        SceneManager.LoadScene(CreditsLevel);
     }
 
     public void MainGameButton()
