@@ -1,0 +1,54 @@
+Ruketh:
+
+Outside of battle: The player moves around the small maze at a relatively quick speed, picking up items and scanning the environment visually for the best path.
+Inside of battle: A short 20-30 second battle where the player and enemy takes turns with fighting each other until one dies. If player survives, they go back to exploring the world.
+
+How will my game be interesting?
+Not much happens when walking around, you can't die when walking around. The environment tells the story through small, basic visuals. You can find items to help you in your quest, that is all.
+
+Pickups: 
+
+Player health
+Player health increase
+Player stamina increase
+Player stamina speed increase
+
+Item health(Sword, dagger, bandages to wrap fists, more throwing knives)
+Item damage(Increases respective item effectivety by a certain amount PERMINANTLY, does not work on fists)
+
+Player Attributes:
+
+Health, can be increased via pickups
+Stamina, speed and size can be also increased from pickups
+Luck, The more luck you have, the weaker the enemies and vice versa. Also, if higher, more pickup value from enemies.
+
+(STAMINA WILL AT ALL TIMES BE SLOWLY INCREASING TO MAX, TAKES A WHILE THOUGH)
+ 
+PLAYER ABILITES(BATTLE):
+Sword, dagger, throwing knife(limited), fists
+
+Sword: 45 damage, 60 Stamina 
+Dagger: 20 damage, 10 Stamina
+Thrown Knives: 15 Damage, 5 Stamina
+Fists: 5 Damage, 1 Stamina
+
+Steal: Steal the current enemies Health, turning it into either Health or stamina(WHATEVER YOU STEAL TO, THE OTHER GETS DECREASED)
+Knock Out: Knock the opponent out. Skips their turn up to 3 times, but will revive them stronger than before if they are not killed(PLAYER ATTRIBUTES ARE ALSO DECREASED(CONFIDENCE))
+
+
+ENEMIES:
+
+Zombie: Damage(Random 10-20), Health(70)
+Skeleton: Damage(Random 5-15), Health (110)
+Vampire: Damage(Random 10-40), Health (90)
+Werewolf: Damage(Random 30-60), Health (100)
+ 
+HAZARDS: 
+
+Dusty areas: Gets in your lungs, needs to be coughed up quickly, more time it takes, the slower your stamina will increase for a period of time
+
+
+Notes:
+- Buildings will not be explorable, only can move on the set path.
+- Enemies, if beaten in the battle sequences, drop items such as health or damage upgrades.
+  
