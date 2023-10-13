@@ -15,6 +15,7 @@ Player stamina speed increase
 
 Item health(Sword, dagger, bandages to wrap fists, more throwing knives)
 Item damage(Increases respective item effectivety by a certain amount PERMINANTLY, does not work on fists)
+Torch(Used to )
 
 Player Attributes:
 
@@ -34,6 +35,11 @@ Fists: 5 Damage, 1 Stamina
 
 Steal: Steal the current enemies Health, turning it into either Health or stamina(WHATEVER YOU STEAL TO, THE OTHER GETS DECREASED)
 Knock Out: Knock the opponent out. Skips their turn up to 3 times, but will revive them stronger than before if they are not killed(PLAYER ATTRIBUTES ARE ALSO DECREASED(CONFIDENCE))
+Wound: Greatly damage the enemy, but weakens all of your attributes for the remainder of the fight with that enemy
+Burn Up: Inflict damage that hurts the enemy for a short time with a torch, takes a lot of stamina and destroys the torch
+Health Increase: Get a player health increase pickup, can't attack or defend anything after that
+Stamina Increase: Get a player stamina increase pickup, also can't attack or defend anything afterwards
+Burning throwing knives: Hurts the enemy less than the torch and torch goes out, but gets 3 throwing knives
 
 
 ENEMIES:
