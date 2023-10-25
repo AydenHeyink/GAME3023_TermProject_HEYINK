@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -6,21 +7,75 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
+    // Enemy Type 
+    string[] enemyNames = new string[] { "Zombie", "Skeleton", "Vampire", "Werewolf" };
+
+    [SerializeField] public Sprite[] sprites = new Sprite[] { };
+    [SerializeField] public Sprite enemySprite;
+
+    [SerializeField] public static int whichType;
+
+    // Enemy Attributes
+    [SerializeField] static int enemyHealth;
+    [SerializeField] static string enemyType;
+
+
+    private int maxHealth;
+    private int minHealth;
+
+    // Enemy UI 
     [SerializeField] Image enemyHealthBar;
 
-    [SerializeField] static float enemyHealth;
-    int maxHealth;
-    int minHealth;
     // Start is called before the first frame update
     void Start()
     {
-        enemyHealth = maxHealth;
+        switch (whichType)
+        {
+            case 1:
+                SetEnemy(sprites[0], enemyNames[0], 70, 70);
+                break;
+            case 2:
+                SetEnemy(sprites[1], enemyNames[1], 110, 110);
+                break;
+            case 3:
+                SetEnemy(sprites[2], enemyNames[2], 90, 90);
+                break;
+            case 4:
+                SetEnemy(sprites[3], enemyNames[3], 100, 100);
+                break;
+            default:
+                break;
+        }
+    }
+
+    static public int MakeRandomInt(int r1, int r2)
+    {
+        int val = UnityEngine.Random.Range(r1, r2);
+        Debug.Log("Enemy Damages player with: " + val + " damage!");
+
+        return val;
+    }
+
+    public void SetEnemy(Sprite type, string name, int maxH, int health)
+    {
+        enemySprite= type;
+        GetComponent<SpriteRenderer>().sprite = enemySprite;
+
+        enemyType= name;
+        
+        enemyHealth = health;
+        maxHealth = maxH;
+        minHealth = 0;
+    }
+    public int GetEnemyHealth()
+    {
+        return enemyHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        enemyHealthBar.fillAmount = enemyHealth / 100f;
+        enemyHealthBar.fillAmount = enemyHealth / GetEnemyHealth();
         enemyHealth = Mathf.Clamp(enemyHealth, minHealth, maxHealth);
 
         if (enemyHealth < 1) 
@@ -32,59 +87,30 @@ public class Enemy : MonoBehaviour
 
     static public void EnemyTurn()
     {
-        int rand = Random.Range(1, 7);
-        Thread.Sleep(1000);
-
-        switch (rand)
+        switch (whichType)
         {
             case 1:
-                Debug.Log("Enemy uses Sword!");
-                PlayerBehaviour.DamagePlayer(45);
-                EncounterManager.Turn();
+                PlayerBehaviour.DamagePlayer(MakeRandomInt(10, 20));
+                //EncounterManager.Turn();
                 break;
             case 2:
-                Debug.Log("Enemy uses Dagger!");
-                PlayerBehaviour.DamagePlayer(20);
-                EncounterManager.Turn();
+                PlayerBehaviour.DamagePlayer(MakeRandomInt(5, 15));
+                //EncounterManager.Turn();
                 break;
             case 3:
-                Debug.Log("Enemy uses Fists!");
-                PlayerBehaviour.DamagePlayer(5);
-                EncounterManager.Turn();
-                break;
-            case 4:
-                Debug.Log("Enemy uses Throwing Knives!");
-                PlayerBehaviour.DamagePlayer(15);
-                EncounterManager.Turn();
-                break;
-            case 5:
-                Debug.Log("Enemy uses Steal Ability!");
-                Enemy.HealEnemy(30);
-                PlayerBehaviour.DamagePlayer(15);
-                EncounterManager.Turn();
-                break;
-            case 6:
-                Debug.Log("Enemy uses Health Increase!");
-                Enemy.HealEnemy(50);
-                EncounterManager.Turn();
-                break;
-            case 7:
-                Debug.Log("Enemy uses Knock Out!");
-                Debug.Log("Knock Out Used");
-                EncounterManager.Turn();
+                PlayerBehaviour.DamagePlayer(MakeRandomInt(10, 40));
+                //EncounterManager.Turn();
                 break;
 
-            default: break;
+            case 4:
+                PlayerBehaviour.DamagePlayer(MakeRandomInt(30, 60));
+                //EncounterManager.Turn();
+                break;
         }
     }
 
-    static public void DamageEnemy(float damage)
+    static public void DamageEnemy(int damage)
     {
         enemyHealth -= damage;
-    }
-
-    static public void HealEnemy(float healing)
-    {
-        enemyHealth += healing;
     }
 }
