@@ -2,77 +2,78 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    // Enemy Type 
-    string[] enemyNames = new string[] { "Zombie", "Skeleton", "Vampire", "Werewolf" };
+    private string name;
+    private int damage;
+    private int health;
 
-    [SerializeField] public Sprite[] sprites = new Sprite[] { };
-    [SerializeField] public Sprite enemySprite;
+    public Enemy(string name, int damage, int health)
+    {
+        this.name = name;
+        this.damage = damage;
+        this.health = health;
+    }
+
+    public string GetName()
+    {
+        return name;
+    }
+
+    public int GetDamage()
+    {
+        return damage;
+    }
+
+    public int GetHealth() 
+    {
+        return health;
+    }
+}
+
+public class EnemyBehaviour
+{
+    static List<Enemy> Enemies= new List<Enemy>();
+
+    void Start()
+    {
+        Enemies.Add(new Enemy("Zombie", 0, 0));
+        Enemies.Add(new Enemy("Zombie", 0, 0));
+        Enemies.Add(new Enemy("Zombie", 0, 0));
+        Enemies.Add(new Enemy("Zombie", 0, 0));
+    }
 
     [SerializeField] public static int whichType;
+    [SerializeField] Image enemyHealthBar;
 
     // Enemy Attributes
     [SerializeField] static int enemyHealth;
-    [SerializeField] static string enemyType;
-
 
     private int maxHealth;
     private int minHealth;
 
-    // Enemy UI 
-    [SerializeField] Image enemyHealthBar;
+    private int minDamage;
+    private int maxDamage;
 
-    // Start is called before the first frame update
-    void Start()
+    public void SetEnemy(int maxH, int minD, int maxD)
     {
-        switch (whichType)
-        {
-            case 1:
-                SetEnemy(sprites[0], enemyNames[0], 70, 70);
-                break;
-            case 2:
-                SetEnemy(sprites[1], enemyNames[1], 110, 110);
-                break;
-            case 3:
-                SetEnemy(sprites[2], enemyNames[2], 90, 90);
-                break;
-            case 4:
-                SetEnemy(sprites[3], enemyNames[3], 100, 100);
-                break;
-            default:
-                break;
-        }
-    }
-
-    static public int MakeRandomInt(int r1, int r2)
-    {
-        int val = UnityEngine.Random.Range(r1, r2);
-        Debug.Log("Enemy Damages player with: " + val + " damage!");
-
-        return val;
-    }
-
-    public void SetEnemy(Sprite type, string name, int maxH, int health)
-    {
-        enemySprite= type;
-        GetComponent<SpriteRenderer>().sprite = enemySprite;
-
-        enemyType= name;
-        
-        enemyHealth = health;
+        enemyHealth = maxH;
         maxHealth = maxH;
         minHealth = 0;
-    }
-    public int GetEnemyHealth()
-    {
-        return enemyHealth;
+
+        minDamage = minD;
+        maxDamage = maxD;
     }
 
-    // Update is called once per frame
+    static public void DamageEnemy(int damage)
+    {
+        enemyHealth -= damage;
+    }
+
     void Update()
     {
         enemyHealthBar.fillAmount = enemyHealth / GetEnemyHealth();
@@ -85,32 +86,17 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    static public void EnemyTurn()
-    {
-        switch (whichType)
-        {
-            case 1:
-                PlayerBehaviour.DamagePlayer(MakeRandomInt(10, 20));
-                //EncounterManager.Turn();
-                break;
-            case 2:
-                PlayerBehaviour.DamagePlayer(MakeRandomInt(5, 15));
-                //EncounterManager.Turn();
-                break;
-            case 3:
-                PlayerBehaviour.DamagePlayer(MakeRandomInt(10, 40));
-                //EncounterManager.Turn();
-                break;
 
-            case 4:
-                PlayerBehaviour.DamagePlayer(MakeRandomInt(30, 60));
-                //EncounterManager.Turn();
-                break;
-        }
+    public int GetEnemyHealth()
+    {
+        return enemyHealth;
     }
 
-    static public void DamageEnemy(int damage)
+    static public int MakeRandomInt(int r1, int r2)
     {
-        enemyHealth -= damage;
+        int val = UnityEngine.Random.Range(r1, r2);
+        Debug.Log("Enemy Damages player with: " + val + " damage!");
+
+        return val;
     }
 }

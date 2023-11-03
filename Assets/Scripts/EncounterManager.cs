@@ -7,22 +7,12 @@ using UnityEngine.UI;
 public class EncounterManager : MonoBehaviour
 {
     static bool B_playerTurn;
-
-    private void Awake()
-    {
-        
-    }
+    int enemyType;
 
     // Start is called before the first frame update
     void Start()
     {
         B_playerTurn= true;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     static public void EndEncounter()
@@ -36,7 +26,7 @@ public class EncounterManager : MonoBehaviour
         if (B_playerTurn)
         {
             B_playerTurn= false;
-            Enemy.EnemyTurn();
+            //Enemy.EnemyTurn();
         }
         else if (!B_playerTurn) 
         { 
