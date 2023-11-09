@@ -18,7 +18,7 @@ public class EncounterManager : MonoBehaviour
     static public void EndEncounter()
     {
         Time.timeScale=1;
-        SceneManager.UnloadSceneAsync(2);
+        SceneManager.UnloadSceneAsync("Encounter");
     }
 
     static public void Turn()

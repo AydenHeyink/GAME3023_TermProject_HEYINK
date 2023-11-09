@@ -37,14 +37,16 @@ public class Enemy : MonoBehaviour
 
 public class EnemyBehaviour
 {
-    static List<Enemy> Enemies= new List<Enemy>();
+    static Enemy Zombie = new Enemy("Zombie", UnityEngine.Random.Range(10,20), 70);
+    static Enemy Skeleton = new Enemy("Skeleton", UnityEngine.Random.Range(5, 15), 110);
+    static Enemy Vampire = new Enemy("Vampire", UnityEngine.Random.Range(10, 40), 90);
+    static Enemy WereWolf = new Enemy("Werewolf", UnityEngine.Random.Range(30, 60), 100);
+
+    static List<Enemy> Enemies= new List<Enemy>()
+        { Zombie, Skeleton, Vampire, WereWolf};
 
     void Start()
     {
-        Enemies.Add(new Enemy("Zombie", 0, 0));
-        Enemies.Add(new Enemy("Zombie", 0, 0));
-        Enemies.Add(new Enemy("Zombie", 0, 0));
-        Enemies.Add(new Enemy("Zombie", 0, 0));
     }
 
     [SerializeField] public static int whichType;
@@ -59,14 +61,15 @@ public class EnemyBehaviour
     private int minDamage;
     private int maxDamage;
 
-    public void SetEnemy(int maxH, int minD, int maxD)
+    public void SetEnemy(string type)
     {
-        enemyHealth = maxH;
-        maxHealth = maxH;
-        minHealth = 0;
+        for (int i = 0; i < Enemies.Count; i++)
+        {
+            if (type.ToString() == Enemies[i].GetName())
+            {
 
-        minDamage = minD;
-        maxDamage = maxD;
+            }
+        }
     }
 
     static public void DamageEnemy(int damage)

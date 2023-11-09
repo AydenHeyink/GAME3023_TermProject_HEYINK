@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using TreeEditor;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.VirtualTexturing;
 using UnityEngine.SceneManagement;
@@ -54,24 +56,30 @@ public class PlayerBehaviour : MonoBehaviour
 
     Vector2 movement;
 
-    static List<Item> items= new List<Item>();
+    static Item sword = new Item("Sword", 40, 50);
+    static Item dagger = new Item("Dagger", 20, 10);
+    static Item fists = new Item("Fists", 10, 5);
+    static Item throwingKnives = new Item("Throwing Knives", 5, 10);
+
+    static List<Item> items= new List<Item>() 
+        {sword,dagger,fists, throwingKnives };
     [SerializeField] Canvas buttonCanvas;
     [SerializeField] GameObject butPref;
 
-    static bool UpdateButtons;
+    static private bool isSceneEnc;
 
     //public Animator anim;
     // Start is called before the first frame update
+    private void Awake()
+    {
+       
+    }
+
     void Start()
     {
-        AddNew("Sword", 40, 50);
-        AddNew("Dagger", 20, 10);
-        AddNew("Fists", 10, 5);
-        AddNew("Throwing Knives", 5, 10);
 
         playerHealth = maxHealth;
         rb = GetComponent<Rigidbody2D>();
-
     }
 
     static public void AddNew(string name, int dam, int stam)
@@ -101,32 +109,59 @@ public class PlayerBehaviour : MonoBehaviour
         {
             // Player death
         }
-
-        if (UpdateButtons)
+        if (Input.GetKeyDown(KeyCode.T))
         {
-            for (int i = 0; i < items.Count; i++)
-            {
-                GameObject button = Instantiate(butPref) as GameObject;
+            EncounterManager.EndEncounter();
+            UnloadButtons();
+        }
+ 
+    }
 
-                button.transform.SetParent(GetCanvas().transform, false);
-                button.gameObject.GetComponentInChildren<Text>().text = items[i].GetName();
-                button.gameObject.transform.position = new Vector3(250, 80 * i, 0);
+    public void LoadButtons()
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            GameObject button = Instantiate(butPref) as GameObject;
 
-                gameObject.SetActive(true);
+            button.transform.SetParent(GetCanvas().transform, false);
+            button.gameObject.GetComponentInChildren<Text>().text = items[i].GetName();
+            button.gameObject.transform.position = new Vector3(250, 80 * i, 0);
 
-                UpdateButtons = false;
-            }
+            Item item = items[i];
+            button.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(item));
+
+            gameObject.SetActive(true);
         }
     }
 
-    static public void SetButtons()
+    public void OnButtonClick(Item i)
     {
-        UpdateButtons = true;
+        string tempName = i.GetName();
+        int tempDam = i.GetDamage();
+        int tempStam = i.GetStamina();
+    }
+
+    public void UnloadButtons()
+    {
+        foreach (GameObject button in GameObject.FindGameObjectsWithTag("buttonClone"))
+        { 
+            Destroy(button);
+        }
+    }
+
+    static public bool GetEncBool()
+    {
+        return isSceneEnc;
     }
 
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * MoveSpeed * Time.fixedDeltaTime);
+    }
+
+    static public void SetEncBool(bool b)
+    {
+        isSceneEnc = b;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -136,28 +171,33 @@ public class PlayerBehaviour : MonoBehaviour
             Time.timeScale = 0;
             Destroy(collision);
             //Enemy.SetType(0);
-            SceneManager.LoadScene("EncounterScene", LoadSceneMode.Additive);
+            LoadButtons();
+            SceneManager.LoadScene("Encounter", LoadSceneMode.Additive);
         }
         else if (collision.gameObject.tag == "Skeleton")
         {
             Time.timeScale = 0;
             Destroy(collision);
             //Enemy.SetType(1);
-            SceneManager.LoadScene("EncounterScene", LoadSceneMode.Additive);
+            LoadButtons();
+            SceneManager.LoadScene("Encounter", LoadSceneMode.Additive);
         }
         else if (collision.gameObject.tag == "Vampire")
         {
             Time.timeScale = 0;
             Destroy(collision);
             //Enemy.SetType(2);
-            SceneManager.LoadScene("EncounterScene", LoadSceneMode.Additive);
+            LoadButtons();
+            SceneManager.LoadScene("Encounter", LoadSceneMode.Additive);
         }
         else if (collision.gameObject.tag == "Werewolf")
         {
             Time.timeScale = 0;
             Destroy(collision);
             //Enemy.SetType(3);
-            SceneManager.LoadScene("EncounterScene", LoadSceneMode.Additive);
+
+            LoadButtons();
+            SceneManager.LoadScene("Encounter", LoadSceneMode.Additive);
         }
     }
 
