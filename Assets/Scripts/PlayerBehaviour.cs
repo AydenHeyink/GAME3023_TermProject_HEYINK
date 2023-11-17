@@ -39,6 +39,27 @@ public class Item
     }
 }
 
+public class Ability
+{
+    private string name;
+    private int amount;
+
+    public Ability(string name, int amount)
+    {
+        this.name = name;
+        this.amount = amount;    }
+
+    public string GetName()
+    {
+        return name;
+    }
+
+    public int GetAmount()
+    {
+        return amount;
+    }
+}
+
 public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField] float MoveSpeed = 3.0f;
@@ -61,8 +82,16 @@ public class PlayerBehaviour : MonoBehaviour
     static Item fists = new Item("Fists", 10, 5);
     static Item throwingKnives = new Item("Throwing Knives", 5, 10);
 
+    //static Ability steal = new Ability("Steal", 30);
+    //static Ability knockout = new Ability("Knockout", 3);
+    //static Ability steal = new Ability("Steal", 30);
+    //static Ability steal = new Ability("Steal", 30);
+
     static List<Item> items= new List<Item>() 
         {sword,dagger,fists, throwingKnives };
+
+    static List<Ability> abilities = new List<Ability>() 
+        { };
     [SerializeField] Canvas buttonCanvas;
     [SerializeField] GameObject butPref;
 
@@ -82,7 +111,7 @@ public class PlayerBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    static public void AddNew(string name, int dam, int stam)
+    static public void AddNewItem(string name, int dam, int stam)
     {
         items.Add(new Item(name, dam, stam));
     }
@@ -139,6 +168,8 @@ public class PlayerBehaviour : MonoBehaviour
         string tempName = i.GetName();
         int tempDam = i.GetDamage();
         int tempStam = i.GetStamina();
+        
+        Debug.Log(i.GetName());
     }
 
     public void UnloadButtons()

@@ -33,7 +33,7 @@ public class AddNewPlayerItem : EditorWindow
 
         if (GUILayout.Button("Craft New Ability"))
         {
-            PlayerBehaviour.AddNew(A_Name, A_Damage, A_Stamina);
+            PlayerBehaviour.AddNewItem(A_Name, A_Damage, A_Stamina);
         }
 
 
@@ -47,7 +47,7 @@ public class AddNewPlayerItem : EditorWindow
 
         if (GUILayout.Button("Craft New Weapon"))
         {
-            PlayerBehaviour.AddNew(A_Name, A_Damage, A_Stamina);
+            PlayerBehaviour.AddNewItem(W_Name, W_Damage, W_Stamina);
         }
     }
 
