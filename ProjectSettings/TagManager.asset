@@ -9,6 +9,8 @@ TagManager:
   - Vampire
   - Werewolf
   - buttonClone
+  - mainlight
+  - mainplayer
   layers:
   - Default
   - TransparentFX
