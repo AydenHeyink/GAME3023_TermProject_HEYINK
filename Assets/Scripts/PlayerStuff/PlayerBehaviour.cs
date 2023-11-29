@@ -15,9 +15,9 @@ public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField] float MoveSpeed = 3.0f;
     [SerializeField] Rigidbody2D rb;
-    [SerializeField] Image playerHealthBar;
-    [SerializeField] Image playerStaminaBar;
-    [SerializeField] Image playerLuckBar;
+    [SerializeField] Image healthBar;
+    [SerializeField] Image staminaBar;
+    [SerializeField] Image luckBar;
 
     [SerializeField] GameObject Light2D; 
 
@@ -34,7 +34,11 @@ public class PlayerBehaviour : MonoBehaviour
     //public Animator anim;
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        PlayerStats.health = PlayerStats.maxHealth;
+        PlayerStats.stamina = PlayerStats.maxStamina;
+        PlayerStats.luck= PlayerStats.maxLuck;
+
+        rb = GetComponent<Rigidbody2D>();   
     }
 
     public Canvas GetCanvas()
@@ -45,16 +49,36 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerHealthBar.fillAmount = PlayerStats.health / PlayerStats.maxHealth;
-        PlayerStats.health = Mathf.Clamp(PlayerStats.health, 
-                                    PlayerStats.minHealth, 
-                                    PlayerStats.maxHealth);
+        if (!PlayerStats.isEncounter)
+        {
+            PlayerStats.stamina += 0.005f;
+        }
+
+        healthBar.fillAmount = (float)PlayerStats.health / (float)PlayerStats.maxHealth;
+        staminaBar.fillAmount = (float)PlayerStats.stamina / (float)PlayerStats.maxStamina;
+        luckBar.fillAmount = (float)PlayerStats.luck / (float)PlayerStats.maxStamina;
+
+        PlayerStats.health = Mathf.Clamp(PlayerStats.health, PlayerStats.minHealth, PlayerStats.maxHealth);
+        PlayerStats.stamina = Mathf.Clamp(PlayerStats.stamina, PlayerStats.minStamina, PlayerStats.maxStamina);
+        PlayerStats.luck = Mathf.Clamp(PlayerStats.luck, PlayerStats.minLuck, PlayerStats.maxLuck); 
+        
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
         //anim.SetFloat("Horizontal", movement.x);
         //anim.SetFloat("Vertical", movement.y);
         //anim.SetFloat("Speed", movement.sqrMagnitude);
+
+        if (PlayerStats.isEncounter == true)
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(false);
+        }
+        if (PlayerStats.isEncounter == false)
+        {
+            transform.GetChild(0).gameObject.SetActive(true);
+            transform.GetChild(1).gameObject.SetActive(true);
+        }
     }
 
     static public bool GetEncBool()
@@ -77,8 +101,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (collision.gameObject.tag == "Zombie")
         {
             Time.timeScale = 0;
-            Destroy(collision);
-            gameObject.SetActive(false);
+            Destroy(collision.gameObject);
             Light2D.gameObject.SetActive(false);
             PlayerPrefs.SetString("Type", "Zombie");
             SceneManager.LoadScene("Encounter", LoadSceneMode.Additive);
@@ -87,7 +110,6 @@ public class PlayerBehaviour : MonoBehaviour
         {
             Time.timeScale = 0;
             Destroy(collision);
-            gameObject.SetActive(false);
             Light2D.gameObject.SetActive(false);
             PlayerPrefs.SetString("Type", "Skeleton");
             SceneManager.LoadScene("Encounter", LoadSceneMode.Additive);
@@ -95,8 +117,7 @@ public class PlayerBehaviour : MonoBehaviour
         else if (collision.gameObject.tag == "Vampire")
         {
             Time.timeScale = 0;
-            Destroy(collision);
-            gameObject.SetActive(false);
+            Destroy(collision.gameObject);
             Light2D.gameObject.SetActive(false);
             PlayerPrefs.SetString("Type", "Vampire");
             SceneManager.LoadScene("Encounter", LoadSceneMode.Additive);
@@ -104,22 +125,11 @@ public class PlayerBehaviour : MonoBehaviour
         else if (collision.gameObject.tag == "Werewolf")
         {
             Time.timeScale = 0;
-            Destroy(collision);
-            gameObject.SetActive(false);
+            Destroy(collision.gameObject);
             Light2D.gameObject.SetActive(false);
             PlayerPrefs.SetString("Type", "Werewolf");
             SceneManager.LoadScene("Encounter", LoadSceneMode.Additive);
         }
-    }
-
-    static public void DamagePlayer(float damage)
-    {
-        PlayerStats.health -= damage;
-    }
-
-    static public void HealPlayer(float heal) 
-    {
-        PlayerStats.health += heal; 
     }
 }
     

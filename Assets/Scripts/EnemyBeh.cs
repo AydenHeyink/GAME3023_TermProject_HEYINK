@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -52,18 +53,16 @@ public class EnemyBeh : MonoBehaviour
         EnemyStats.currentEnemy.health -= damage;
     }
 
-    private void FixedUpdate()
-    {
-        enemyHealthBar.fillAmount = EnemyStats.currentEnemy.GetHealth() /
-        GetEnemyMaxHealth();
-    }
-
     void Update()
     {
+        enemyHealthBar.fillAmount = (float)EnemyStats.currentEnemy.GetHealth() / (float)GetEnemyMaxHealth();
+
         transform.position = enemyLocation.transform.position;
 
         EnemyStats.currentEnemy.health = Mathf.Clamp(
-            EnemyStats.currentEnemy.health, minHealth, maxHealth);
+                                         EnemyStats.currentEnemy.health, 
+                                         minHealth, 
+                                         GetEnemyMaxHealth());
 
         if (EnemyStats.currentEnemy.health < 1)
         {
@@ -76,6 +75,14 @@ public class EnemyBeh : MonoBehaviour
     public int GetEnemyMaxHealth()
     {
         return maxHealth;
+    }
+
+    static public void EnemyTurn()
+    {
+        int dam = EnemyStats.currentEnemy.GetRandDamage();
+        PlayerStats.health -= dam;
+
+        EncounterManager.Turn();
     }
 
     static public int MakeRandomInt(int r1, int r2)

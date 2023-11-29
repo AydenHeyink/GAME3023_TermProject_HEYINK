@@ -8,6 +8,18 @@ static public class PlayerStats
     public static int maxHealth = 100;
     public static int minHealth = 0;
 
+    public static float stamina;
+    public static int maxStamina = 100;
+    public static int minStamina = 0;
+
+    public static float luck;
+    public static int maxLuck = 1;
+    public static int minLuck = 0;
+
+    public static bool isEncounter;
+
+    static public PlayerBehaviour p;
+
     public static Weapons sword = new Weapons("Sword", 40, 50);
     public static Weapons dagger = new Weapons("Dagger", 20, 10);
     public static Weapons fists = new Weapons("Fists", 10, 5);
@@ -21,23 +33,26 @@ static public class PlayerStats
         throwingKnives
     };
 
-    public static Pickup healthIncreasePickup = new Pickup("Herb", 30, 0, 0, 0, 0, 0);
     public static Pickup maxHealthIncreasePickup = new Pickup("MagicPotion", 0, 10, 0, 0, 0, 0);
-
-    public static Pickup staminaIncreasePickup = new Pickup("Coffee", 0, 0, 30, 0, 0, 0);
     public static Pickup maxStaminaIncreasePickup = new Pickup("Coffee-Flower", 0, 0, 0, 10, 0, 0);
-
-    public static Pickup luckIncreasePickup = new Pickup("4 Leaf Clover", 0, 0, 0, 0, 0.5f, 0);
     public static Pickup maxLuckIncreasePickup = new Pickup("Liquid Luck", 0, 0, 0, 0, 0, 1);
 
     public static List<Pickup> pickups = new List<Pickup>()
     {
-        healthIncreasePickup,
         maxHealthIncreasePickup,
-        staminaIncreasePickup,
         maxStaminaIncreasePickup,
-        luckIncreasePickup,
         maxLuckIncreasePickup,
+    };
+
+    public static Abilities healthIncreasePickup = new Abilities("Herb", 50);
+    public static Abilities staminaIncreasePickup = new Abilities("Coffee", 30);
+    public static Abilities luckIncreasePickup = new Abilities("4 Leaf Clover", 1);
+
+    public static List<Abilities> abilities = new List<Abilities>()
+    {
+        healthIncreasePickup,
+        staminaIncreasePickup,
+        luckIncreasePickup,
     };
 
     static public void AddNewItem(string name, int dam, int stam)

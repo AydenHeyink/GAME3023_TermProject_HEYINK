@@ -12,12 +12,13 @@ public class EncounterManager : MonoBehaviour
     void Start()
     {
         B_playerTurn= true;
+        PlayerStats.isEncounter = true;
     }
 
     static public void EndEncounter()
     {
         Time.timeScale=1;
-
+        PlayerStats.isEncounter = false;
         SceneManager.UnloadSceneAsync("Encounter");
     }
 
@@ -26,7 +27,7 @@ public class EncounterManager : MonoBehaviour
         if (B_playerTurn)
         {
             B_playerTurn= false;
-            //Enemy.EnemyTurn();
+            EnemyBeh.EnemyTurn();
         }
         else if (!B_playerTurn) 
         { 
