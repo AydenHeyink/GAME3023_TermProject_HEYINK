@@ -11,6 +11,15 @@ TagManager:
   - buttonClone
   - mainlight
   - mainplayer
+  - herb
+  - stamina
+  - liquidluck
+  - coffee
+  - potion
+  - coffeebean
+  - LuckIncrease
+  - MainMusicManager
+  - GroundTiles
   layers:
   - Default
   - TransparentFX

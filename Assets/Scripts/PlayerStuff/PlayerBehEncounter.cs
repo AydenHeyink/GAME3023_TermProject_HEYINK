@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,6 +14,10 @@ public class PlayerBehEncounter : MonoBehaviour
 
     [SerializeField] Canvas buttonCanvas;
     [SerializeField] GameObject butPref;
+
+    [SerializeField] TextMeshProUGUI herbCount;
+    [SerializeField] TextMeshProUGUI coffeeCount;
+    [SerializeField] TextMeshProUGUI leafCount;
 
     // Start is called before the first frame update
     void Start()
@@ -68,7 +73,23 @@ public class PlayerBehEncounter : MonoBehaviour
     public void OnButtonClickAbilites(Abilities i)
     {
         string tempName = i.GetName();
-        int tempHeal = i.GetHeal();
+        int tempAmt = i.GetAmt();
+
+        if (i.GetName() == "Herb" && PlayerStats.Herbs > 0)
+        {
+            PlayerStats.health += PlayerStats.healthIncreasePickup.GetAmt();
+            PlayerStats.Herbs--;
+        }
+        if (i.GetName() == "Coffee" && PlayerStats.Coffee > 0)
+        {
+            PlayerStats.stamina += PlayerStats.staminaIncreasePickup.GetAmt();
+            PlayerStats.Coffee--;
+        }
+        if (i.GetName() == "Liquid Luck" && PlayerStats.LeafClovers > 0)
+        {
+            PlayerStats.luck += PlayerStats.luckIncreasePickup.GetAmt();
+            PlayerStats.LeafClovers--;
+        }
 
         EncounterManager.Turn();
     }
@@ -76,6 +97,10 @@ public class PlayerBehEncounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        herbCount.text = PlayerStats.Herbs.ToString();
+        coffeeCount.text = PlayerStats.Coffee.ToString();
+        leafCount.text = PlayerStats.LeafClovers.ToString();
+
         healthBar.fillAmount = (float)PlayerStats.health / (float)PlayerStats.maxHealth;
         staminaBar.fillAmount = (float)PlayerStats.stamina / (float)PlayerStats.maxStamina;
         luckBar.fillAmount = (float)PlayerStats.luck / (float)PlayerStats.maxStamina;

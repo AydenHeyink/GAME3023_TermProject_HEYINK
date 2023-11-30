@@ -5,12 +5,12 @@ using UnityEngine;
 public class Abilities
 {
     private string name;
-    private int heal;
+    private int amt;
 
-    public Abilities(string name, int heal)
+    public Abilities(string name, int amt)
     {
         this.name = name;
-        this.heal = heal;
+        this.amt = amt;
     }
 
     public string GetName()
@@ -18,9 +18,9 @@ public class Abilities
         return name;
     }
 
-    public int GetHeal() 
+    public int GetAmt() 
     { 
-        return heal;
+        return amt;
     }
 
     //public static Abilities = 

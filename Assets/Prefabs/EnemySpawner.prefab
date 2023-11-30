@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8819544138661093256
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4585996615976691600}
+  - component: {fileID: 3773976594264193835}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4585996615976691600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8819544138661093256}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.28383255, y: 0.4648533, z: 0.018029213}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3773976594264193835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8819544138661093256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d30511c0ce74e44e81d449795c73ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyTypes:
+  - {fileID: 4053109727905251981, guid: 297119a1cf22ea14491111cea81b2bc6, type: 3}
+  - {fileID: 1362053768718160180, guid: 193a25c57632a864cbc5be9072030807, type: 3}
+  - {fileID: 7755473214175130994, guid: 68d197d3762d16644999560f3c61053b, type: 3}
+  - {fileID: 7364857414681601621, guid: da3cd71899e24ff4f923efb15860e968, type: 3}
+  destruction:
+  - {fileID: 6783921688693535769, guid: 048c77282dfe74c49831271ce02b6b4f, type: 3}
+  - {fileID: 7103184423194089882, guid: 1d63a3989557a464dbdc2be6d5401a65, type: 3}
+  - {fileID: 2598362220053503889, guid: 23256b75326fe074d84b7e81300ad06f, type: 3}
+  - {fileID: 3180387006766446335, guid: e6dc90c5158b04447832bc74d419934f, type: 3}
+  amtOfEnemies: 6
+  destructionAmt: 5

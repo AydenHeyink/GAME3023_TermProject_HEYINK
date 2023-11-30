@@ -34,6 +34,11 @@ public class PlayerBehaviour : MonoBehaviour
     //public Animator anim;
     void Start()
     {
+
+        PlayerStats.Herbs = 1;
+        PlayerStats.Coffee = 1;
+        PlayerStats.LeafClovers = 1;
+
         PlayerStats.health = PlayerStats.maxHealth;
         PlayerStats.stamina = PlayerStats.maxStamina;
         PlayerStats.luck= PlayerStats.maxLuck;
@@ -129,6 +134,38 @@ public class PlayerBehaviour : MonoBehaviour
             Light2D.gameObject.SetActive(false);
             PlayerPrefs.SetString("Type", "Werewolf");
             SceneManager.LoadScene("Encounter", LoadSceneMode.Additive);
+        }
+        else if (collision.gameObject.tag == "herb")
+        {
+            Destroy(collision.gameObject);
+            PlayerStats.Herbs++;
+        }
+        else if (collision.gameObject.tag == "coffee")
+        {
+            Destroy(collision.gameObject);
+            PlayerStats.Coffee++;
+        }
+        else if (collision.gameObject.tag == "liquidluck")
+        {
+            Destroy(collision.gameObject);
+            PlayerStats.LeafClovers++;
+        }
+        else if (collision.gameObject.tag == "potion")
+        {
+            Destroy(collision.gameObject);
+            PlayerStats.maxHealth += 5;
+        }
+        else if (collision.gameObject.tag == "coffeebean")
+        {
+            Destroy(collision.gameObject);
+            PlayerStats.maxStamina += 5;
+
+        }
+        else if (collision.gameObject.tag == "LuckIncrease")
+        {
+            Destroy(collision.gameObject);
+            PlayerStats.maxLuck += 1;
+
         }
     }
 }

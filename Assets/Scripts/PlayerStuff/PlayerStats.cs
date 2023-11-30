@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 static public class PlayerStats 
@@ -15,6 +16,10 @@ static public class PlayerStats
     public static float luck;
     public static int maxLuck = 1;
     public static int minLuck = 0;
+
+    public static int Herbs;
+    public static int Coffee;
+    public static int LeafClovers;
 
     public static bool isEncounter;
 
