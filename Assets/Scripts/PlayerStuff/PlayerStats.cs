@@ -13,7 +13,7 @@ static public class PlayerStats
     public static int maxStamina = 100;
     public static int minStamina = 0;
 
-    public static float luck;
+    public static int luck;
     public static int maxLuck = 1;
     public static int minLuck = 0;
 
@@ -63,5 +63,15 @@ static public class PlayerStats
     static public void AddNewItem(string name, int dam, int stam)
     {
         items.Add(new Weapons(name, dam, stam));
+    }
+
+    static public void AddNewPickup(string name, int healthInc, int maxHealthInc, int staminaInc, int maxStaminaInc, int luckInc, int maxLuckInc)
+    {
+        pickups.Add(new Pickup(name, healthInc, maxHealthInc, staminaInc, maxStaminaInc, luckInc, maxLuckInc));
+    }
+
+    static public void AddNewAbility(string name, int amt)
+    {
+        abilities.Add(new Abilities(name, amt));
     }
 }

@@ -9,6 +9,8 @@ public class EnemyType
     public int minDamage;
     public int maxDamage;
     public int health;
+    public int minHealth;
+    public int maxHealth;
 
     public EnemyType(string name, int minDamage, int maxDamage, int health)
     {
@@ -16,21 +18,13 @@ public class EnemyType
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
         this.health = health;
-    }
-
-    public string GetName()
-    {
-        return name;
+        this.minHealth = 0;
+        this.maxHealth = health;
     }
 
     public int GetRandDamage()
     {
         return UnityEngine.Random.Range(minDamage, maxDamage);
-    }
-
-    public int GetHealth()
-    {
-        return health;
     }
 }
 

@@ -20,6 +20,8 @@ TagManager:
   - LuckIncrease
   - MainMusicManager
   - GroundTiles
+  - Chest
+  - gameend
   layers:
   - Default
   - TransparentFX

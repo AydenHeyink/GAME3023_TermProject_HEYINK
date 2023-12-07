@@ -207,7 +207,7 @@ RectTransform:
   m_GameObject: {fileID: 3214674298733262863}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.43744, z: 1}
+  m_LocalScale: {x: 1, y: 0.43744, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3003900236581069690}
@@ -215,7 +215,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1425, y: 564}
+  m_AnchoredPosition: {x: -1064, y: 564}
   m_SizeDelta: {x: 848.01, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5038965133170690597
@@ -439,6 +439,8 @@ MonoBehaviour:
   healthBar: {fileID: 8768800208430658262}
   staminaBar: {fileID: 4910096354394360748}
   luckBar: {fileID: 2083210433369446286}
+  onChest: 0
+  hasClickedChest: 0
   Light2D: {fileID: 0}
   buttonCanvas: {fileID: 2780076733353567793}
   butPref: {fileID: 3405225145343931591, guid: 6477857b5aaeab940bb562c210f9d540, type: 3}
@@ -552,7 +554,7 @@ RectTransform:
   m_GameObject: {fileID: 4485249211266780516}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7.051504, y: 0.4908188, z: 1}
+  m_LocalScale: {x: 8.285517, y: 0.4908188, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8757057993149855214}

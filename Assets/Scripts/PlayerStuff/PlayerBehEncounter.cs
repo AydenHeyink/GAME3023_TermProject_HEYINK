@@ -8,6 +8,9 @@ using static UnityEditor.Progress;
 
 public class PlayerBehEncounter : MonoBehaviour
 {
+    EncounterManager EM;
+    public int currentDamage;
+
     [SerializeField] Image healthBar;
     [SerializeField] Image staminaBar;
     [SerializeField] Image luckBar;
@@ -23,6 +26,7 @@ public class PlayerBehEncounter : MonoBehaviour
     void Start()
     {
         LoadButtons();
+        EM = FindObjectOfType<EncounterManager>();
     }
 
     public void LoadButtons()
@@ -32,7 +36,7 @@ public class PlayerBehEncounter : MonoBehaviour
             GameObject button = Instantiate(butPref) as GameObject;
 
             button.transform.SetParent(GetCanvas().transform, false);
-            button.gameObject.GetComponentInChildren<Text>().text = PlayerStats.items[i].GetName();
+            button.gameObject.GetComponentInChildren<Text>().text = PlayerStats.items[i].name;
             button.gameObject.transform.position = new Vector3(250, 80 * i, 0);
 
             Weapons item = PlayerStats.items[i];
@@ -46,7 +50,7 @@ public class PlayerBehEncounter : MonoBehaviour
             GameObject button = Instantiate(butPref) as GameObject;
 
             button.transform.SetParent(GetCanvas().transform, false);
-            button.gameObject.GetComponentInChildren<Text>().text = PlayerStats.abilities[i].GetName();
+            button.gameObject.GetComponentInChildren<Text>().text = PlayerStats.abilities[i].name;
             button.gameObject.transform.position = new Vector3(750, 80 * i, 0);
 
             Abilities ab = PlayerStats.abilities[i];
@@ -59,65 +63,101 @@ public class PlayerBehEncounter : MonoBehaviour
 
     public void OnButtonClickWeapons(Weapons i)
     {
-        string tempName = i.GetName();
-        int tempDam = i.GetDamage();
-        int tempStam = i.GetStamina();
-
-        EnemyBeh.DamageEnemy(tempDam);
+        string tempName = i.name;
+        int tempDam = i.damage;
+        int tempStam = i.stamina;
+        
+        if (PlayerStats.luck > 2)
+        {
+            currentDamage = (tempDam * PlayerStats.luck / UnityEngine.Random.Range(1,3));
+        }
+        else if (PlayerStats.luck < 2) 
+        {
+            currentDamage = tempDam;
+        }
 
         PlayerStats.stamina -= tempStam;
+        EnemyBeh.DamageEnemy(tempDam * PlayerStats.luck / UnityEngine.Random.Range(1, 3));
 
-        EncounterManager.Turn();
+        EM.SetPlayerText("Player did " + currentDamage + " Damage to enemy",
+            "Player Stamina depleted " + tempStam + ", Stamina now: " + PlayerStats.stamina);
+
+        EncounterManager.Turn(); 
     }
 
     public void OnButtonClickAbilites(Abilities i)
     {
-        string tempName = i.GetName();
-        int tempAmt = i.GetAmt();
+        string tempName = i.name;
+        int tempAmt = i.amt;
 
-        if (i.GetName() == "Herb" && PlayerStats.Herbs > 0)
+        switch(tempName)
         {
-            PlayerStats.health += PlayerStats.healthIncreasePickup.GetAmt();
-            PlayerStats.Herbs--;
+            case "Herb":
+                if (PlayerStats.Herbs > 0)
+                {
+                    PlayerStats.health += tempAmt;
+                    PlayerStats.Herbs--;
+                }
+                break;
+            case "Coffee":
+                if (PlayerStats.Coffee > 0)
+                {
+                    PlayerStats.stamina += tempAmt;
+                    PlayerStats.Coffee--;
+                }
+                break;
+            case "4 Leaf Clover":
+                if (PlayerStats.LeafClovers > 0)
+                {
+                    PlayerStats.luck += tempAmt;
+                    PlayerStats.LeafClovers--;
+                }
+                break;
         }
-        if (i.GetName() == "Coffee" && PlayerStats.Coffee > 0)
-        {
-            PlayerStats.stamina += PlayerStats.staminaIncreasePickup.GetAmt();
-            PlayerStats.Coffee--;
-        }
-        if (i.GetName() == "Liquid Luck" && PlayerStats.LeafClovers > 0)
-        {
-            PlayerStats.luck += PlayerStats.luckIncreasePickup.GetAmt();
-            PlayerStats.LeafClovers--;
-        }
-
-        EncounterManager.Turn();
     }
 
     // Update is called once per frame
     void Update()
     {
-        herbCount.text = PlayerStats.Herbs.ToString();
-        coffeeCount.text = PlayerStats.Coffee.ToString();
-        leafCount.text = PlayerStats.LeafClovers.ToString();
+        ManagePlayerPickupText();
+        ManageProgressBars();
+        ManageAttributes();
+        CheckForPlayerDeath();
 
-        healthBar.fillAmount = (float)PlayerStats.health / (float)PlayerStats.maxHealth;
-        staminaBar.fillAmount = (float)PlayerStats.stamina / (float)PlayerStats.maxStamina;
-        luckBar.fillAmount = (float)PlayerStats.luck / (float)PlayerStats.maxStamina;
-        
-        PlayerStats.health = Mathf.Clamp(PlayerStats.health, PlayerStats.minHealth, PlayerStats.maxHealth);
-        PlayerStats.stamina = Mathf.Clamp(PlayerStats.stamina, PlayerStats.minStamina, PlayerStats.maxStamina);
-        PlayerStats.luck = Mathf.Clamp(PlayerStats.luck, PlayerStats.minLuck, PlayerStats.maxLuck);
-
-        if (PlayerStats.health < 1)
-        {
-            SceneManager.LoadScene("GameOver");
-        }
         if (Input.GetKeyDown(KeyCode.T))
         {
             EncounterManager.EndEncounter();
             UnloadButtons();
         }
+    }
+
+    private static void CheckForPlayerDeath()
+    {
+        if (PlayerStats.health < 1)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
+    }
+
+    private static void ManageAttributes()
+    {
+        PlayerStats.health = Mathf.Clamp(PlayerStats.health, PlayerStats.minHealth, PlayerStats.maxHealth);
+        PlayerStats.stamina = Mathf.Clamp(PlayerStats.stamina, PlayerStats.minStamina, PlayerStats.maxStamina);
+        PlayerStats.luck = Mathf.Clamp(PlayerStats.luck, PlayerStats.minLuck, PlayerStats.maxLuck);
+    }
+
+    private void ManageProgressBars()
+    {
+        healthBar.fillAmount = (float)PlayerStats.health / (float)PlayerStats.maxHealth;
+        staminaBar.fillAmount = (float)PlayerStats.stamina / (float)PlayerStats.maxStamina;
+        luckBar.fillAmount = (float)PlayerStats.luck / (float)PlayerStats.maxLuck;
+    }
+
+    private void ManagePlayerPickupText()
+    {
+        herbCount.text = PlayerStats.Herbs.ToString();
+        coffeeCount.text = PlayerStats.Coffee.ToString();
+        leafCount.text = PlayerStats.LeafClovers.ToString();
     }
 
     public void UnloadButtons()
@@ -126,10 +166,6 @@ public class PlayerBehEncounter : MonoBehaviour
         {
             Destroy(button);
         }
-    }
-    static public void AddNew(string name, int dam, int stam)
-    {
-        //PlayerStats.items.Add((name, dam, stam));
     }
 
     public Canvas GetCanvas()
