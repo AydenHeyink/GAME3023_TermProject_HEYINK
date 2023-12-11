@@ -20,6 +20,8 @@ public class EnemySpawner : MonoBehaviour
         {
             GameObject enemy = Instantiate(enemyTypes[UnityEngine.Random.Range(0, max)]);
 
+            enemy.transform.SetParent(this.transform, transform.parent);
+
             enemy.transform.position= this.transform.position +
                 new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f),
                                     UnityEngine.Random.Range(-0.5f, 0.5f),
@@ -31,6 +33,8 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < destructionAmt; i++)
         {
             GameObject des = Instantiate(destruction[UnityEngine.Random.Range(0, max)]);
+
+            des.transform.SetParent(this.transform, transform.parent);
 
             des.transform.position = this.transform.position +
                 new Vector3(UnityEngine.Random.Range(-0.8f, 0.8f),

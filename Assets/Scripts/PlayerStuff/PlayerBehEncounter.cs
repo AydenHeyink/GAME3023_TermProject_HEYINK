@@ -135,6 +135,11 @@ public class PlayerBehEncounter : MonoBehaviour
     {
         if (PlayerStats.health < 1)
         {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                SceneManager.UnloadScene(i);
+            }
+
             SceneManager.LoadScene("GameOver");
         }
     }
@@ -181,5 +186,10 @@ public class PlayerBehEncounter : MonoBehaviour
     static public void HealPlayer(float healing)
     {
         PlayerStats.health += healing;
+    }
+
+    private void OnDestroy()
+    {
+
     }
 }

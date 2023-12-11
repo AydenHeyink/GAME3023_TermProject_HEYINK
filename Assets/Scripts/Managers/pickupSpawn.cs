@@ -15,6 +15,8 @@ public class pickupSpawn : MonoBehaviour
         {
             GameObject pickup = Instantiate(pickups[UnityEngine.Random.Range(0, max)]);
 
+            pickup.transform.SetParent(this.transform, transform.parent);
+
             pickup.transform.position = this.transform.position +
                 new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f),
                                     UnityEngine.Random.Range(-0.5f, 0.5f),
