@@ -11,3 +11,5 @@ Zombie pixel set: https://ironnbutterfly.itch.io/zombie-sprite
 Skeleton pixel set: https://astrobob.itch.io/animated-pixel-art-skeleton
 Vampire pixel set: https://elthen.itch.io/2d-pixel-art-ghoul-sprites
 Werewolf pixel set: https://craftpix.net/freebies/free-werewolf-sprite-sheets-pixel-art/
+
+For button listener: https://docs.unity3d.com/2018.3/Documentation/ScriptReference/UI.Button-onClick.html
