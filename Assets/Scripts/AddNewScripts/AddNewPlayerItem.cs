@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEditor;
 using Unity.VisualScripting;
 
+#if UNITY_EDITOR
 public class AddNewPlayerItem : EditorWindow
 {
+
     string A_Name = "placeholder";
     int A_Amount = 0;
 
@@ -81,3 +83,4 @@ public class AddNewPlayerItem : EditorWindow
     }
 
 }
+#endif

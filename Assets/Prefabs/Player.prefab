@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -439,11 +439,9 @@ MonoBehaviour:
   healthBar: {fileID: 8768800208430658262}
   staminaBar: {fileID: 4910096354394360748}
   luckBar: {fileID: 2083210433369446286}
-  onChest: 0
-  hasClickedChest: 0
   Light2D: {fileID: 0}
-  buttonCanvas: {fileID: 2780076733353567793}
   butPref: {fileID: 3405225145343931591, guid: 6477857b5aaeab940bb562c210f9d540, type: 3}
+  onChest: 0
 --- !u!50 &63508632269594651
 Rigidbody2D:
   serializedVersion: 4

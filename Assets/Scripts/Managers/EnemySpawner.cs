@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         int max=  enemyTypes.Count;
 
         for (int i = 0; i < amtOfEnemies; i++) 

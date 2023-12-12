@@ -35,5 +35,8 @@ static public class EnemyStats
     public static EnemyType Vampire = new EnemyType("Vampire", 10, 40, 90);
     public static EnemyType Werewolf = new EnemyType("Werewolf", 30, 60, 100);
 
+    public static List<EnemyType> EnemyTypeList = new List<EnemyType>()
+    { Zombie, Skeleton, Vampire, Werewolf};
+
     public static EnemyType currentEnemy;
 }
