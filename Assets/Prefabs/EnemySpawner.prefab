@@ -56,3 +56,6 @@ MonoBehaviour:
   - {fileID: 3180387006766446335, guid: e6dc90c5158b04447832bc74d419934f, type: 3}
   amtOfEnemies: 6
   destructionAmt: 5
+  pickups: []
+  amtOfPickups: 0
+  isEnemySpawner: 1

@@ -11,36 +11,58 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int amtOfEnemies;
     [SerializeField] int destructionAmt;
 
+    [SerializeField] List<GameObject> pickups = new List<GameObject>();
+    [SerializeField] int amtOfPickups;
+
+    [SerializeField] bool isEnemySpawner;
     // Start is called before the first frame update
     void Start()
     {
-
-        int max=  enemyTypes.Count;
-
-        for (int i = 0; i < amtOfEnemies; i++) 
+        if (isEnemySpawner)
         {
-            GameObject enemy = Instantiate(enemyTypes[UnityEngine.Random.Range(0, max)]);
+            int max = enemyTypes.Count;
 
-            enemy.transform.SetParent(this.transform, transform.parent);
+            for (int i = 0; i < amtOfEnemies; i++)
+            {
+                GameObject enemy = Instantiate(enemyTypes[UnityEngine.Random.Range(0, max)]);
 
-            enemy.transform.position= this.transform.position +
-                new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f),
-                                    UnityEngine.Random.Range(-0.5f, 0.5f),
-                                        0);
+                enemy.transform.SetParent(this.transform, transform.parent);
+
+                enemy.transform.position = this.transform.position +
+                    new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f),
+                                        UnityEngine.Random.Range(-0.5f, 0.5f),
+                                            0);
+            }
+
+            int destructionAmt = destruction.Count;
+
+            for (int i = 0; i < destructionAmt; i++)
+            {
+                GameObject des = Instantiate(destruction[UnityEngine.Random.Range(0, max)]);
+
+                des.transform.SetParent(this.transform, transform.parent);
+
+                des.transform.position = this.transform.position +
+                    new Vector3(UnityEngine.Random.Range(-0.8f, 0.8f),
+                                        UnityEngine.Random.Range(-0.8f, 0.8f),
+                                            0);
+            }
         }
-
-        int destructionAmt = destruction.Count;
-
-        for (int i = 0; i < destructionAmt; i++)
+        else if (!isEnemySpawner)
         {
-            GameObject des = Instantiate(destruction[UnityEngine.Random.Range(0, max)]);
+            int max = pickups.Count;
 
-            des.transform.SetParent(this.transform, transform.parent);
+            for (int i = 0; i < amtOfPickups; i++)
+            {
+                GameObject pickup = Instantiate(pickups[UnityEngine.Random.Range(0, max)]);
 
-            des.transform.position = this.transform.position +
-                new Vector3(UnityEngine.Random.Range(-0.8f, 0.8f),
-                                    UnityEngine.Random.Range(-0.8f, 0.8f),
-                                        0);
+                pickup.transform.SetParent(this.transform, transform.parent);
+
+                pickup.transform.position = this.transform.position +
+                    new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f),
+                                        UnityEngine.Random.Range(-0.5f, 0.5f),
+                                            0);
+            }
         }
     }
 

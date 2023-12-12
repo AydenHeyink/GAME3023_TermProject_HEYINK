@@ -1,3 +1,13 @@
 Citations:
 
 Main Tileset: https://blackspirestudio.itch.io/medieval-pixel-art-asset-free
+
+Blood png: https://www.pixilart.com/art/random-blood-splatter-d2d9543e6df153f
+Bloody Corpse 1: https://www.google.ca/search?q=dead+body+pixel+png&tbm=isch&ved=2ahUKEwiq0cn5gIqDAxWejVjUKHcnhBXYQ2-cCegQIABAA&oq=dead+body+pixl+png&gs_lcp=CgNpbWcQAzoECCMQJzoGCAAQCBAeOgoIABCABBCKBRBDOggIABCABBCxAzoFCAAQgAQ6DQgAEIAEEIoFEEMQsQM6BwgjEOoCECdQgwlYv3hgznloDnAAeACAAWmIAekSkgEEMzMuMZgBAKABAaoBC2d3cy13aXotaW1nsAEKwAEB&sclient=img&ei=jGB4ZarbCKOt1QHJw5ewBw&bih=955&biw=1920#imgrc=8F2BFQgMk7fr8M 
+
+Some assets: https://cainos.itch.io/pixel-art-top-down-basic
+
+Zombie pixel set: https://ironnbutterfly.itch.io/zombie-sprite
+Skeleton pixel set: https://astrobob.itch.io/animated-pixel-art-skeleton
+Vampire pixel set: https://elthen.itch.io/2d-pixel-art-ghoul-sprites
+Werewolf pixel set: https://craftpix.net/freebies/free-werewolf-sprite-sheets-pixel-art/
